@@ -1,0 +1,13 @@
+<!-- <mat-sidenav-container>
+        <mat-sidenav mode="side" [(opened)]="opened">Start</mat-sidenav>
+        <mat-sidenav-content>
+            <button (click)="opened=!opened">{{opened}}</button>
+            Main</mat-sidenav-content>
+</mat-sidenav-container> -->
+
+<mat-form-field>
+    <input matInput #dateInput [matDatepicker]="myDatePicker" (dateChange)="valueChanged(dateInput.value)">
+    <mat-datepicker-toggle [for]="myDatePicker" matSuffix></mat-datepicker-toggle>
+    <mat-datepicker #myDatePicker></mat-datepicker>
+</mat-form-field>
+<span>{{ dateSelected | date:'fullDate' | titlecase }}</span>
