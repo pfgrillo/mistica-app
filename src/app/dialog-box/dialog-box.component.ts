@@ -18,6 +18,7 @@ export class DialogBoxComponent implements OnInit {
   //employees: EmployeesModel = new EmployeesModel([{name: "Employee Name"},{name:"Susana"} ]);
   constructor(private _employeeService: EmployeesService) { 
     this._employeeService.getEmployees().subscribe((res : EmployeesModel[])=>{
+      console.log(res);
       this.employees = res;
     })
   }

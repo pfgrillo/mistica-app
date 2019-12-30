@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ServiceModel } from '../models/services';
 import { ServicesService } from '../ng-services/services.service';
 import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material';
+import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 
 
 @Component({
@@ -11,13 +13,19 @@ import { Observable } from 'rxjs';
 })
 export class ServicesListComponent implements OnInit {
 
-  public service: ServiceModel[] = [];
+  public services: ServiceModel[] = [];
   
-  constructor(private _servicesService: ServicesService) { 
+  constructor(private _servicesService: ServicesService, public dialog: MatDialog) { 
     this._servicesService.getServices().subscribe((res : ServiceModel[])=>{
-      this.service = res;
+      console.log(res);
+      this.services = res;
     })
   }
+
+  openDialog(){
+    this.dialog.open(DialogBoxComponent);
+  }
+  
   ngOnInit() {
 
   }

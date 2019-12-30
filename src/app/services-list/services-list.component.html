@@ -1,6 +1,6 @@
 desde aca
 <ul class="companies">
     <li *ngFor="let service of services">
-        {{ service.name }}
+        <button mat-raised-button (click)="openDialog()">{{ service.name }}</button>
     </li>
   </ul>
