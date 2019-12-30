@@ -1,5 +1,5 @@
 * {
-    font-family: Roboto;
+    font-family: Lato;
   }
 .navbar {
     justify-content: space-between;
@@ -12,6 +12,10 @@ span {
 
 .btn{
     color: white;
+}
+
+.header{
+    font-size: 70px;
 }
 
 @media (min-width: 1200px) {
