@@ -17,7 +17,6 @@ export class ServicesListComponent implements OnInit {
   
   constructor(private _servicesService: ServicesService, public dialog: MatDialog) { 
     this._servicesService.getServices().subscribe((res : ServiceModel[])=>{
-      console.log(res);
       this.services = res;
     })
   }
@@ -25,7 +24,7 @@ export class ServicesListComponent implements OnInit {
   openDialog(){
     this.dialog.open(DialogBoxComponent);
   }
-  
+
   ngOnInit() {
 
   }
