@@ -8,7 +8,8 @@ router.get('/employees', (req, res) => {
     .then((items) => {
       items = items.map((item) => ({
         id: item._id,
-        name: item.name
+        name: item.name,
+        service: item.service
       }))
       res.json(items)
     })

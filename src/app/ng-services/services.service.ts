@@ -12,4 +12,5 @@ export class ServicesService {
     console.log(this.http.get(this.baseUrl + '/services'))
     return this.http.get(this.baseUrl + '/services');
   }
+
 }

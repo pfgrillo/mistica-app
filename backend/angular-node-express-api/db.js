@@ -21,4 +21,9 @@ const getServices = () => {
   return collection.find({}).toArray()
 }
 
-module.exports = { init, getEmployees, getServices }
+const getPrices = () => {
+  const collection = db.collection('service')
+  return collection.find({name:"corte"}).toArray()
+}
+
+module.exports = { init, getEmployees, getServices, getPrices }

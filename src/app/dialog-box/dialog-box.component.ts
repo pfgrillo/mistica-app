@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MatCheckbox } from '@angular/material';
+import { MatCheckbox, MatCheckboxChange } from '@angular/material';
 import { EmployeesModel } from '../models/employees';
 import { EmployeesService } from '../ng-services/employees.service';
+import { ServiceModel } from '../models/services';
+import { ServicesService } from '../ng-services/services.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -12,19 +14,36 @@ import { Observable } from 'rxjs';
 export class DialogBoxComponent implements OnInit {
 
   public employees: EmployeesModel[] = [];
-  
-  // public employeesObservable: Observable<EmployeesModel[]> ; 
+  public prices: ServiceModel[] = [];
 
-  //employees: EmployeesModel = new EmployeesModel([{name: "Employee Name"},{name:"Susana"} ]);
-  constructor(private _employeeService: EmployeesService) { 
+  // public employeesObservable: Observable<EmployeesModel[]> ; 
+  constructor(private _employeeService: EmployeesService, private _serviceService: ServicesService) { 
     this._employeeService.getEmployees().subscribe((res : EmployeesModel[])=>{
-      console.log(res);
       this.employees = res;
+    });
+
+    this._serviceService.getServices().subscribe((res : ServiceModel[])=>{
+      console.log(res);
+      this.prices = res;
     })
+    // this._serviceService.getServices().subscribe((res: ServiceModel[]) => {
+    //   console.log(res);
+    //   this.prices = res;
+    // });
   }
-  // public checkbox: MatCheckbox
+
+  public eventCheck(event: MatCheckboxChange, name: String) {
+    const index = this.employees.findIndex(x => x.name === name);
+    console.log(this.employees[index]);
+    if (index === -1) {
+        console.warn("Employee not found");  
+        return;
+    }
+    console.log(event.checked)
+    // this.employees[index].checked = changeEvent.checked;
+  }
   ngOnInit() {
-    //this.employees = this._employeeService.getEmployees();
+
   }
 
 }

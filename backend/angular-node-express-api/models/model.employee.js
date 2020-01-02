@@ -1,8 +1,9 @@
 class EmployeeModel
 {
-	constructor(name)
+	constructor(name, service)
 	{
 		this.name = name;
+		this.service = service;
 
 	}
 }

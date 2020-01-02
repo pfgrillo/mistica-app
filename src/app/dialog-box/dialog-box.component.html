@@ -1,9 +1,14 @@
 <!-- <mat-dialog-content>Are you sure?</mat-dialog-content> -->
 <ul class="companies">
   <li *ngFor="let employee of employees">
-    <mat-checkbox (change)="onCheckboxStateChange($event, company.id);">{{ employee.name }}</mat-checkbox>
+    <mat-checkbox (change)="eventCheck($event, employee.name);">{{ employee.name }}</mat-checkbox>
   </li>
 </ul>
+<!-- <div class="companies">
+    <div *ngFor="let price of prices">
+      <div *ngIf="price !== null">{{ price.price }}</div>
+    </div>
+  </div> -->
 <mat-dialog-actions>
   <button mat-button mat-dialog-close class="btn btn-danger">Cancel</button>
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->

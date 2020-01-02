@@ -1,0 +1,9 @@
+.logo { 
+    width: auto;
+    height: auto;
+    text-align:center;
+  }
+  
+  .logo button {
+    display:inline-block;
+  } 

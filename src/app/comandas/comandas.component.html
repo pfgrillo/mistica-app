@@ -1,6 +1,13 @@
 
 <h4>{{myDate | date:shortDate}} - Comanda Nº: {{comanda}}</h4>
 
-<app-services-list></app-services-list>
+<h5>Servicio</h5>
+  <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group-vertical mr-2 buttondiv" role="group" aria-label="First group" *ngFor="let service of services; let i = index">
+      <button type="button" class="btn buttoncolor" (click)="openDialog()" id="{{ 'tuid' + i}}">{{service.name}}</button>
+    </div>
+  </div>
+
+<!-- <app-services-list></app-services-list> -->
 
 <h5>Total comanda {{totalComanda}}</h5>

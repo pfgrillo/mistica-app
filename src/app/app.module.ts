@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material/material.module';
 import { TurnosComponent } from './turnos/turnos.component';
+import { StartComponent } from './start/start.component';
 import { registerLocaleData } from '@angular/common';
 
 import localeEsAr from '@angular/common/locales/es-AR';
@@ -17,7 +18,6 @@ import { HttpClientModule } from '@angular/common/http'
 
 import { EmployeesService } from './ng-services/employees.service';
 import { ServicesService } from './ng-services/services.service';
-import { ServicesListComponent } from './services-list/services-list.component';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -28,7 +28,7 @@ registerLocaleData(localeEsAr, 'es-Ar');
     CalendarComponent,
     ComandasComponent,
     DialogBoxComponent,
-    ServicesListComponent
+    StartComponent
   ],
   entryComponents: [
     DialogBoxComponent

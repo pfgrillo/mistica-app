@@ -1,12 +1,6 @@
 export class ServiceModel
 {
 	name: String;
+	price: Number;
 
-	// constructor(obj: any = null)
-	// {
-	// 	if(obj != null)
-	// 	{
-	// 		Object.assign(this, obj);
-	// 	}
-	// }
 }
