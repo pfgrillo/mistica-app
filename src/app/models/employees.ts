@@ -1,6 +1,7 @@
 export class EmployeesModel
 {
 	name: string;
+	service: Object;
 
 	// constructor(obj: any = null)
 	// {

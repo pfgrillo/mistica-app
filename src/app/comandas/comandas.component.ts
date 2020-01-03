@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 import { ServiceModel } from '../models/services';
@@ -22,10 +21,28 @@ export class ComandasComponent implements OnInit {
     })
   }
 
-  
-  openDialog(){
-    this.dialog.open(DialogBoxComponent);
+  openDialog(name: String){
+    const index = this.services.findIndex(x => x.name === name);
+    let dialogRef = this.dialog.open(DialogBoxComponent, {
+      data: {name: this.services[index].name}
+    });
+    // dialogRef.afterClosed().subscribe(() => {
+    //   console.log(event);
+
+    // });
   }
+
+  saveService(name: String){
+    const index = this.services.findIndex(x => x.name === name);
+    console.log(this.services[index].name);
+    console.log(this.services[index].price);
+    // this.services.forEach(service => {
+    //   console.log(service)
+    // }); 
+  }
+  // dialogRef.afterClosed().subscribe(result => {
+  //   this.selectedOption = result;
+  // });
 
   ngOnInit() {
   
