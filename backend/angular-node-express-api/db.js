@@ -4,6 +4,7 @@ const connectionUrl = 'mongodb://localhost:27017'
 const dbName = 'emp_db'
 
 let db
+let clientdb
 
 const init = () =>
   MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true }).then((client) => {
@@ -21,9 +22,24 @@ const getServices = () => {
   return collection.find({}).toArray()
 }
 
-const getPrices = () => {
-  const collection = db.collection('service')
-  return collection.find({name:"corte"}).toArray()
+const getComandas = () => {
+  const collection = db.collection('comanda')
+  return collection.find({}).toArray()
 }
 
-module.exports = { init, getEmployees, getServices, getPrices }
+const getComanda = (comanda) => {
+  const collection = db.collection('comanda')
+  return collection.find({number: parseInt(comanda)}).toArray()
+}
+
+const addComanda = (comanda, number) => {
+  const collection = db.collection('comanda')
+  console.log(number)
+  
+  collection.insertOne(comanda, (err, res) => {
+    if (err) throw err;  
+  console.log("1 record inserted");  
+  })
+  // MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true }).close()
+}
+module.exports = { init, getEmployees, getServices, getComandas, getComanda, addComanda }

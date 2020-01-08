@@ -1,10 +1,12 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatCheckbox, MatCheckboxChange } from '@angular/material';
+import { Component, OnInit, Inject, Optional } from '@angular/core';
+import { MatCheckboxChange, MatDialogRef } from '@angular/material';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EmployeesModel } from '../models/employees';
 import { EmployeesService } from '../ng-services/employees.service';
 import { ServiceModel } from '../models/services';
 import { ServicesService } from '../ng-services/services.service';
+import { ComandasModel } from '../models/comandas';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -20,8 +22,19 @@ export class DialogBoxComponent implements OnInit {
   public total: Number = 0;
   public commission;
   public employeeName: String = "";
-  // public employeesObservable: Observable<EmployeesModel[]> ; 
-  constructor(private _employeeService: EmployeesService, private _serviceService: ServicesService, @Inject(MAT_DIALOG_DATA) public data: any) { 
+  public command_line: any //ComandasModel[] = [];
+
+  fromPage:string;
+
+  public employeesObservable: Observable<EmployeesModel[]>; 
+
+  constructor(private _employeeService: EmployeesService, 
+              private _serviceService: ServicesService,
+              @Optional()
+              @Inject(MAT_DIALOG_DATA)
+              public data: any,
+              public dialogRef: MatDialogRef<DialogBoxComponent>,
+              private http: HttpClient) { 
     this._employeeService.getEmployees().subscribe((res : EmployeesModel[])=>{
       this.employees = res;
     });
@@ -30,13 +43,12 @@ export class DialogBoxComponent implements OnInit {
       this.prices = res;
       this.services = res;
     })
+
   }
   
   public eventCheck(event: MatCheckboxChange, name: String) {
     const index = this.employees.findIndex(x => x.name === name);
     this.employeeName = this.employees[index].name;
-    // this.commission =  this.employees[index].service;  //gives back the commission for given employee and service
-    // console.log(this.commission);
     if (index === -1) {
         console.warn("Employee not found");  
         return;
@@ -49,15 +61,27 @@ export class DialogBoxComponent implements OnInit {
 
   onSave(name: String){
     const index = this.services.findIndex(x => x.name === name);
-    console.log(this.services[index].name, this.services[index].price, this.employeeName);
-    // const index = this.employees.findIndex(x => x.service === name);
-    // console.log(this.employees[index]);
-    // if (index === -1) {
-    //     console.warn("Employee not found");  
-    //     return;
-    // }
-    // console.log(event.checked)
-    // // this.employees[index].checked = changeEvent.checked;
+    // var service_name: any = name;
+    // var service_price = this.services[index].price;
+    // this.command_line = {number: 2, employee: this.employeeName};
+    // this.command_line[service_name] = service_price;
+    // console.log(this.command_line);
+    this.command_line = {number: 2, service: {name: name, price: this.services[index].price}, employee: this.employeeName};
+    if(this.command_line === false)
+  	{
+  		return;
+  	}
+  	else
+  	{
+  		let data: any = Object.assign(this.command_line);
+
+  		this.http.post('/comandas', data).subscribe((data:any) => {
+          console.log("something")
+          console.log(data)
+        });
+
+    this.dialogRef.close({event:'close', data: this.command_line});
+    }
   }
 
   ngOnInit() {

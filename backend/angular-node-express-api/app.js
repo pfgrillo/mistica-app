@@ -21,11 +21,11 @@ app.use(cookieParser())
 
 const employees = require('./routes/employees')
 const services = require('./routes/services')
-// const prices = require('./routes/prices')
+const comandas = require('./routes/comandas')
 
-app.get('/employees', employees);
-app.get('/services', services);
-// app.get('/prices', prices);
+app.use(employees);
+app.use(services);
+app.use(comandas);
 
 init().then(() => {
     console.log('starting server on port 3000')

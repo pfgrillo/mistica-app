@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http'
 
 import { EmployeesService } from './ng-services/employees.service';
 import { ServicesService } from './ng-services/services.service';
+import { ComandasService } from './ng-services/comandas.service';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -42,7 +43,10 @@ registerLocaleData(localeEsAr, 'es-Ar');
     MaterialModule,
     HttpClientModule
   ],
-  providers: [ { provide: LOCALE_ID, useValue: 'es-Ar' }, EmployeesService, ServicesService ],
+  providers: [ { provide: LOCALE_ID, useValue: 'es-Ar' },
+                 EmployeesService,
+                 ServicesService,
+                 ComandasService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

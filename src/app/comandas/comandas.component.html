@@ -1,11 +1,25 @@
 
-<h4>{{myDate | date:shortDate}} - Comanda Nº: {{comanda}}</h4>
-
-<h5>Servicio</h5>
+<br>
+<div class="container-fluid">
+<h5 class="headers">Servicio</h5>
   <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
     <div class="btn-group-vertical mr-2 buttondiv" role="group" aria-label="First group" *ngFor="let service of services; let i = index">
-      <button type="button" class="btn buttoncolor" (click)="openDialog(service.name); saveService(service.name)" id="{{ 'service_id' + i }}">{{service.name}}</button>
+      <button type="button" class="btn buttoncolor" (click)="openDialog(service.name)" id="{{ 'service_id' + i }}">{{service.name}}</button>
     </div>
   </div>
 
+  <br>
+  <h5 class="headers">{{myDate | date:'dd/MM/yyyy'}} - Comanda Nº: {{ comanda }}</h5>
+<div class="comanda">	
+  <div class="container">
+    <div *ngFor="let comanda of comandas">
+      <div *ngIf="comanda !== null">{{ comanda.service.name | json }} - ${{ comanda.service.price | json }} | 
+			{{ comanda.employee | json }}
+	  </div>
+    </div>
+  </div>
+</div>
+<br>
+<hr>
 <h5>Total comanda {{totalComanda}}</h5>
+</div>
