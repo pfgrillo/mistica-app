@@ -16,7 +16,7 @@ export class ComandasService {
 
   getComandas(){
     //console.log(this.http.get(this.baseUrl + '/comandas'))
-    return this.http.get(this.baseUrl + '/comandas');
+   return this.http.get(this.baseUrl + '/comandas');
   }
 
   getComanda(){

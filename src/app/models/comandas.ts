@@ -1,8 +1,12 @@
 export class ComandasModel
 {
+	_id: String;
 	number: Number;
-    service: Object;
-    employee: Object;
+    service: {
+		name: String,
+		price: Number
+	};
+    employee: String;
 
 	// constructor(obj: any = null)
 	// {

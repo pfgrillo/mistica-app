@@ -19,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { EmployeesService } from './ng-services/employees.service';
 import { ServicesService } from './ng-services/services.service';
 import { ComandasService } from './ng-services/comandas.service';
+import { ShadowDirective } from './ng-services/shadow.directive';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -29,7 +30,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     CalendarComponent,
     ComandasComponent,
     DialogBoxComponent,
-    StartComponent
+    StartComponent,
+    ShadowDirective
   ],
   entryComponents: [
     DialogBoxComponent

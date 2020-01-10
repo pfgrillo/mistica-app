@@ -5,7 +5,8 @@ import { ServiceModel } from '../models/services';
 import { ComandasModel } from '../models/comandas';
 import { ServicesService } from '../ng-services/services.service';
 import { ComandasService } from '../ng-services/comandas.service';
-import { JsonPipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { MatIcon } from '@angular/material';
 
 @Component({
   selector: 'app-comandas',
@@ -22,9 +23,12 @@ export class ComandasComponent implements OnInit {
   public comandaline: ComandasModel[] = [];
   public comandaStr: String;
   public comandaArr:any;
+  public comanda_total: any = 0;
+
 
   constructor(private _servicesService: ServicesService,
-              private _comandasService: ComandasService,  
+              private _comandasService: ComandasService,
+              private http: HttpClient,
               public dialog: MatDialog) {
     this._servicesService.getServices().subscribe((res : ServiceModel[])=>{
       this.services = res;
@@ -50,23 +54,33 @@ export class ComandasComponent implements OnInit {
     });
     
     dialogRef.afterClosed().subscribe(result => {
-      
       this._comandasService.getComandas().subscribe((res : ComandasModel[])=>{
         this.comandas = res;
-      })// if(result){
-      // this.comandas.push = result.data;
-      // console.log(this.comandaStr)
-      // console.log(result.data);
-      // }
+      })
+      this.comanda_total = 0;
+      this.comandas.forEach(comanda => {
+        if(comanda.service.price){
+        this.comanda_total = this.comanda_total + comanda.service.price;
+        console.log(comanda.service.price);
+        }
+      });
+      // console.log(this.comanda_total);
+      // // if(result){
+      // // this.comandas.push = result.data;
+      // // console.log(this.comandaStr)
+      // // console.log(result.data);
+      // // }
     });
   }
 
-  // saveService(name: String){
-  //   const index = this.services.findIndex(x => x.name === name);
-  //   console.log(this.services[index].name);
-  //   console.log(this.services[index].price);
-  // }
-
+  removeLine(event){
+      let item_id = document.getElementById(event.target.parentElement.parentElement.id)
+      let id_comanda = event.target.previousElementSibling.id;
+      this.http.get('/comandas/'+ id_comanda + '/delete').subscribe((data:any) => {
+      });
+      item_id.parentNode.removeChild(item_id);
+  }
+  
   ngOnInit() {
   
   }

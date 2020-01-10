@@ -11,15 +11,22 @@
   <br>
   <h5 class="headers">{{myDate | date:'dd/MM/yyyy'}} - Comanda Nº: {{ comanda }}</h5>
 <div class="comanda">	
-  <div class="container">
-    <div *ngFor="let comanda of comandas">
-      <div *ngIf="comanda !== null">{{ comanda.service.name | json }} - ${{ comanda.service.price | json }} | 
-			{{ comanda.employee | json }}
-	  </div>
-    </div>
+  <div class="container-fluid">
+		<ul class="list-group" id="comandaList">
+    <div *ngFor="let comanda of comandas; let i = index">
+		<li class="list-group-item" *ngIf="comanda !== null" id="{{ 'item_id' + i}}">
+			<div class="row">
+				<div class="mr-auto" id="{{comanda.id}}" >{{ comanda.service.name | json }} - ${{ comanda.service.price | json }} | 
+					{{ comanda.employee | json }}
+				</div>
+				<button type="button" class="mdc-icon-button material-icons xbtn" appShadow (click)="removeLine($event)">clear</button>
+			</div>	
+	  </li>
+	</div>
+</ul>
   </div>
 </div>
 <br>
 <hr>
-<h5>Total comanda {{totalComanda}}</h5>
+<h5>Total comanda: {{comanda_total}}</h5>
 </div>

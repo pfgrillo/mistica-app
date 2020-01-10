@@ -10,15 +10,16 @@ class ComandaService
 	static create(data)
 	{
         let comanda = new Comanda({number:data.number, service:data.service, employee:data.employee});
-		// comanda.uid = "prueba" //'c' + counter++;
+		
+		// comanda.uid = 'c' + counter++;
 
-		// comandas[comanda.uid] = comanda;
+		// comandas[comanda.gid] = comanda;
+
 		return comanda;
     }
     
     static givenumber(data)
 	{
-        console.log("before crating comanda")
         let number = data.number
 		return number;
 	}

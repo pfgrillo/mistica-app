@@ -53,19 +53,10 @@ export class DialogBoxComponent implements OnInit {
         console.warn("Employee not found");  
         return;
     }
-    // console.log(event.checked)
-    // console.log(this.message);
-    
-    // this.employees[index].checked = changeEvent.checked;
   }
 
   onSave(name: String){
     const index = this.services.findIndex(x => x.name === name);
-    // var service_name: any = name;
-    // var service_price = this.services[index].price;
-    // this.command_line = {number: 2, employee: this.employeeName};
-    // this.command_line[service_name] = service_price;
-    // console.log(this.command_line);
     this.command_line = {number: 2, service: {name: name, price: this.services[index].price}, employee: this.employeeName};
     if(this.command_line === false)
   	{
@@ -76,8 +67,6 @@ export class DialogBoxComponent implements OnInit {
   		let data: any = Object.assign(this.command_line);
 
   		this.http.post('/comandas', data).subscribe((data:any) => {
-          console.log("something")
-          console.log(data)
         });
 
     this.dialogRef.close({event:'close', data: this.command_line});

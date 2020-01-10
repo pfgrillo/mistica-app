@@ -4,6 +4,8 @@ const { getComanda } = require('../db')
 const ComandaService = require('../services/service.comandas')
 const ComandaModel = require("../models/model.comanda")
 const { addComanda } = require('../db')
+const { deleteLine } = require('../db')
+const db = require('../db')
 
 var router = express.Router();
 
@@ -64,7 +66,20 @@ router.post('/comandas', async (req, res, next) =>
 
 		// unexpected error
 		return next(err);
-	}
+  }
+
+});
+
+router.get('/comandas/:id/delete', (req, res) => {
+   deleteLine(req.params.id)
+  .then( () => {
+    console.log(req.params.id + ' deleted')
+    res.status(500).end()
+  })
+  .catch((err) => {
+    console.log(err)
+    res.status(500).end()
+  });
 });
 
 module.exports = router;
