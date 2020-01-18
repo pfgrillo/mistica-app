@@ -4,8 +4,6 @@ class EmployeeModel
 	{
 		this.name = name;
 		this.service = service;
-
 	}
 }
-
 module.exports = EmployeeModel;

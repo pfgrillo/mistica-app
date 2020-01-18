@@ -4,8 +4,6 @@ class serviceModel
 	{
 		this.name = name;
 		this.price = price;
-
 	}
 }
-
 module.exports = serviceModel;

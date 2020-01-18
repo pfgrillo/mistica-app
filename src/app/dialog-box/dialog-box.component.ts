@@ -17,15 +17,13 @@ import { Observable } from 'rxjs';
 export class DialogBoxComponent implements OnInit {
 
   public employees: EmployeesModel[] = [];
+  public employeeName: String = "";
   public prices: ServiceModel[] = [];
   public services: ServiceModel[] = [];
-  public total: Number = 0;
+  public comandas: ComandasModel[] = [];
+  public command_line: any
   public commission;
-  public employeeName: String = "";
-  public command_line: any //ComandasModel[] = [];
-
-  fromPage:string;
-
+  public total: Number = 0;
   public employeesObservable: Observable<EmployeesModel[]>; 
 
   constructor(private _employeeService: EmployeesService, 
@@ -38,7 +36,6 @@ export class DialogBoxComponent implements OnInit {
     this._employeeService.getEmployees().subscribe((res : EmployeesModel[])=>{
       this.employees = res;
     });
-
     this._serviceService.getServices().subscribe((res : ServiceModel[])=>{
       this.prices = res;
       this.services = res;
@@ -65,11 +62,9 @@ export class DialogBoxComponent implements OnInit {
   	else
   	{
   		let data: any = Object.assign(this.command_line);
-
   		this.http.post('/comandas', data).subscribe((data:any) => {
         });
-
-    this.dialogRef.close({event:'close', data: this.command_line});
+    this.dialogRef.close({event:'close', data: this.command_line, comandasDialog: this.comandas});
     }
   }
 

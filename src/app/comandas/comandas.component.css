@@ -26,10 +26,6 @@ span {
     align-items: center;
 }
 
-.redbtn{
-    color: red;
-}
-
 .xbtn{
         border: 0;
         background: none;
@@ -37,3 +33,18 @@ span {
         border-radius: 0px;
         font-size: 12px;
 }
+  li div button:before {
+    content: '';
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: red;
+    z-index: -1;
+  }
+  
+  li div button:hover:before {
+    box-shadow: 0 0 5px red;
+    filter: blur(3px);
+  }

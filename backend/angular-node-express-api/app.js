@@ -1,11 +1,14 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 
-const { init } = require('./db')
 const app = express();
 
+//--- Import DB settings ---
+const { init } = require('./db')
+
+//--- CORS access settings ---
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
@@ -14,11 +17,12 @@ app.use((req, res, next) => {
   next();
 });
 
-
+//--- Middlewares ---
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser())
 
+//--- Routes ---
 const employees = require('./routes/employees')
 const services = require('./routes/services')
 const comandas = require('./routes/comandas')
@@ -27,9 +31,10 @@ app.use(employees);
 app.use(services);
 app.use(comandas);
 
+//--- Start Server ---
 init().then(() => {
-    console.log('starting server on port 3000')
-    app.listen(3000)
+    console.log('Starting server on port 3000')
+    app.listen(process.env.PORT || 3000)
   })
 
 module.exports = app;

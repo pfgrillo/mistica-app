@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 import { ServiceModel } from '../models/services';
@@ -24,27 +24,19 @@ export class ComandasComponent implements OnInit {
   public comandaStr: String;
   public comandaArr:any;
   public comanda_total: any = 0;
-
+  public comandasNew: ComandasModel[] = [];
 
   constructor(private _servicesService: ServicesService,
               private _comandasService: ComandasService,
               private http: HttpClient,
               public dialog: MatDialog) {
+
     this._servicesService.getServices().subscribe((res : ServiceModel[])=>{
       this.services = res;
     })
-
-    this._comandasService.getComandas().subscribe((res : ComandasModel[])=>{
-      this.comandas = res;
-    })
-
     this._comandasService.getComanda().subscribe((res : ComandasModel[])=>{
       this.comandaStr = JSON.stringify(res);
     })
-
-    // this._comandasService.createComanda().subscribe((res : ComandasModel[])=>{
-    //   this.comandaStr = JSON.stringify(res);
-    // })
   }
 
   openDialog(name: String){
@@ -53,23 +45,20 @@ export class ComandasComponent implements OnInit {
       data: {name: this.services[index].name}
     });
     
-    dialogRef.afterClosed().subscribe(result => {
-      this._comandasService.getComandas().subscribe((res : ComandasModel[])=>{
-        this.comandas = res;
-      })
+    dialogRef.afterClosed().subscribe(() => {
+            this.http.get('/comandas').subscribe((res : ComandasModel[])=>{
+          this.comandas = res;
+        })
+
       this.comanda_total = 0;
       this.comandas.forEach(comanda => {
         if(comanda.service.price){
         this.comanda_total = this.comanda_total + comanda.service.price;
         console.log(comanda.service.price);
         }
+
+        let list = document.getElementById('comandaList');
       });
-      // console.log(this.comanda_total);
-      // // if(result){
-      // // this.comandas.push = result.data;
-      // // console.log(this.comandaStr)
-      // // console.log(result.data);
-      // // }
     });
   }
 
@@ -81,8 +70,14 @@ export class ComandasComponent implements OnInit {
       item_id.parentNode.removeChild(item_id);
   }
   
+  ngOnChanges(){
+
+  }
+
   ngOnInit() {
-  
+    this._comandasService.getComandas().subscribe((res : ComandasModel[])=>{
+      this.comandas = res;
+    })
   }
 
 }
